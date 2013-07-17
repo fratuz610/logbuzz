@@ -8,5 +8,6 @@ import (
 
 func main() {
 	hosieweb.Post("/api/input", myweb.PostInput)
+	hosieweb.Get("/api/query", myweb.GetQuery)
 	hosieweb.Run("0.0.0.0:1212")
 }
