@@ -2,9 +2,11 @@
 package main
 
 import (
-	"fmt"
+	hosieweb "github.com/hoisie/web"
+	myweb "logbuzz/web"
 )
 
 func main() {
-	fmt.Println("Hello World!")
+	hosieweb.Post("/api/input", myweb.PostInput)
+	hosieweb.Run("0.0.0.0:1212")
 }
