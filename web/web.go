@@ -45,9 +45,19 @@ func GetQuery(ctx *hosieweb.Context) {
 	env := ctx.Params["env"]
 	level := ctx.Params["level"]
 
-	fromTS := int64(0)
 	var err error
 
+	skip := 0
+	if ctx.Params["skip"] != "" {
+		skip, err = strconv.Atoi(ctx.Params["skip"])
+		if err != nil {
+			fmt.Println("Unable to parse skip '%v' into a valid number because %v\n", ctx.Params["skip"], err.Error())
+			ctx.WriteHeader(400)
+			return
+		}
+	}
+
+	fromTS := int64(0)
 	if ctx.Params["fromTS"] != "" {
 		fromTS, err = strconv.ParseInt(ctx.Params["fromTS"], 10, 64)
 		if err != nil {
@@ -57,7 +67,7 @@ func GetQuery(ctx *hosieweb.Context) {
 		}
 	}
 
-	toTS := time.Now().Unix()
+	toTS := time.Now().UnixNano() / 1000
 
 	if ctx.Params["toTS"] != "" {
 		toTS, err = strconv.ParseInt(ctx.Params["toTS"], 10, 64)
@@ -68,7 +78,7 @@ func GetQuery(ctx *hosieweb.Context) {
 		}
 	}
 
-	logItemList := logitem.Search(inputID, level, env, fromTS, toTS)
+	logItemList := logitem.Search(inputID, level, env, fromTS, toTS, skip)
 
 	byteArray, err := json.Marshal(logItemList)
 

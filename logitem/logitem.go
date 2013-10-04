@@ -35,17 +35,19 @@ func AddLogItem(item *LogItem) {
 	log.PushFront(item)
 }
 
-func Search(inputID, level, env string, fromTS, toTS int64) []LogItem {
+func Search(inputID, level, env string, fromTS, toTS int64, skip int) []LogItem {
 
 	logMutex.Lock()
 	defer logMutex.Unlock()
 
 	// 500 is the maximum number of items returned per query
-	retList := make([]LogItem, 500)
+	retList := make([]LogItem, 0, 500)
+
+	addedSoFar := 0
 
 	for cursor := log.Front(); cursor != nil; cursor = cursor.Next() {
 
-		logItem := cursor.Value.(LogItem)
+		logItem := cursor.Value.(*LogItem)
 
 		if strings.ToLower(inputID) != logItem.InputID {
 			continue
@@ -67,7 +69,18 @@ func Search(inputID, level, env string, fromTS, toTS int64) []LogItem {
 			break
 		}
 
-		retList = append(retList, logItem)
+		// we skip
+		if skip > 0 {
+			skip--
+			continue
+		}
+
+		retList = append(retList, *logItem)
+		addedSoFar++
+
+		if addedSoFar >= 500 {
+			break
+		}
 	}
 
 	return retList
