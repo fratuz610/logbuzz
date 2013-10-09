@@ -1,14 +1,14 @@
 <div ng-show="!loaded">
-	<h5 class="text-center"><i class="icon-refresh icon-spin icon-large"></i> Loading Server Logs...</h5>
+	<h5 class="text-center"><i class="icon-refresh icon-spin icon-large"></i> Loading Logs...</h5>
 </div>
-<div ng-show="loaded" class="panel">
+<div ng-show="loaded" class="panel panel-default">
 	<div class="panel-heading">
-		<h3 class="panel-title">Server log</h3>
+		<h3 class="panel-title">Logbuzz logs</h3>
 	</div>
-	<table class="table table-hover table-condensed">
+	<table class="table table-hover table-condensed" ng-show="logItemList.length > 0">
 	<tr>
 		<th class="log-time">Date</th>
-		<th class="log-level">Type</th>
+		<th class="log-level">Level</th>
 		<th class="log-message">Text</th>
 		<th class="log-time-list">Tag List</th>
 	</tr>
@@ -18,5 +18,6 @@
 		<td class="log-message">{{logItem.message}}</td>
 		<td class="log-time-list">{{logItem.tagList | join:" "}}</td>
 	</tr>
-</table>
+  </table>
+  <p ng-show="logItemList.length == 0" class="text-center"><i>No log items to show</i></p>
 </div>

@@ -38,26 +38,20 @@ func PostInput(ctx *hosieweb.Context) {
 
 func GetQuery(ctx *hosieweb.Context) {
 
-	inputID := ctx.Params["inputID"]
-
-	if inputID == "" {
-		log.Println("No inputID specified")
-		ctx.WriteHeader(400)
-		return
-	}
-
 	var err error
 
-	env := ctx.Params["env"]
-	level := ctx.Params["level"]
-	tagList, err := csv.NewReader(strings.NewReader(ctx.Params["tagList"])).Read()
-	if err != nil {
-		log.Println("Unable to parse tagList '%v' into a valid list of tags: %v\n", ctx.Params["tagList"], err.Error())
-		ctx.WriteHeader(400)
-		return
+	var tagList []string = nil
+
+	if ctx.Params["tagList"] != "" {
+		tagList, err = csv.NewReader(strings.NewReader(ctx.Params["tagList"])).Read()
+		if err != nil {
+			log.Println("Unable to parse tagList '%v' into a valid CSV list because %v\n", ctx.Params["tagList"], err.Error())
+			ctx.WriteHeader(400)
+			return
+		}
 	}
 
-	log.Println("Tag list: %v\n", tagList)
+	level := ctx.Params["level"]
 
 	skip := 0
 	if ctx.Params["skip"] != "" {
@@ -90,7 +84,7 @@ func GetQuery(ctx *hosieweb.Context) {
 		}
 	}
 
-	logItemList := logitem.Search(inputID, level, env, fromTS, toTS, skip)
+	logItemList := logitem.Search(level, tagList, fromTS, toTS, skip)
 
 	byteArray, _ := json.Marshal(logItemList)
 

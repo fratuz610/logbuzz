@@ -8,22 +8,23 @@ import (
 )
 
 type LogItem struct {
-	InputID   string   `json:"inputID"`
 	Timestamp int64    `json:"timestamp"`
 	Level     string   `json:"level"`
 	Message   string   `json:"message"`
-	Env       string   `json:"env"`
 	TagList   []string `json:"tagList"`
 }
 
-func NewLogItem(inputID, level, message, env string) *LogItem {
+func NewLogItem(level, message string, tagList []string) *LogItem {
 	ret := LogItem{}
-	ret.InputID = inputID
+	ret.Timestamp = time.Now().Unix()
 	ret.Level = level
 	ret.Message = message
-	ret.Env = env
-	ret.Timestamp = time.Now().Unix()
-	ret.TagList = []string{}
+	ret.TagList = tagList
+
+	if ret.TagList == nil {
+		ret.TagList = make([]string, 0)
+	}
+
 	return &ret
 }
 
@@ -37,7 +38,7 @@ func AddLogItem(item *LogItem) {
 	log.PushFront(item)
 }
 
-func Search(inputID, level, env string, fromTS, toTS int64, skip int) []LogItem {
+func Search(level string, tagList []string, fromTS, toTS int64, skip int) []LogItem {
 
 	logMutex.Lock()
 	defer logMutex.Unlock()
@@ -51,16 +52,24 @@ func Search(inputID, level, env string, fromTS, toTS int64, skip int) []LogItem 
 
 		logItem := cursor.Value.(*LogItem)
 
-		if strings.ToLower(inputID) != logItem.InputID {
-			continue
-		}
-
 		if level != "" && strings.ToLower(level) != logItem.Level {
 			continue
 		}
 
-		if env != "" && strings.ToLower(env) != logItem.Env {
-			continue
+		if tagList != nil {
+			found := false
+
+			for _, tag := range tagList {
+				for _, savedTag := range logItem.TagList {
+					if tag == savedTag {
+						found = true
+					}
+				}
+			}
+
+			if !found {
+				continue
+			}
 		}
 
 		if toTS != 0 && logItem.Timestamp > toTS {
