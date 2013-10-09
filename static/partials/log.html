@@ -1,0 +1,22 @@
+<div ng-show="!loaded">
+	<h5 class="text-center"><i class="icon-refresh icon-spin icon-large"></i> Loading Server Logs...</h5>
+</div>
+<div ng-show="loaded" class="panel">
+	<div class="panel-heading">
+		<h3 class="panel-title">Server log</h3>
+	</div>
+	<table class="table table-hover table-condensed">
+	<tr>
+		<th class="log-time">Date</th>
+		<th class="log-level">Type</th>
+		<th class="log-message">Text</th>
+		<th class="log-time-list">Tag List</th>
+	</tr>
+	<tr ng-repeat="logItem in logItemList" ng-class="{'warning': logItem.level == 'WARNING', 'danger': logItem.level == 'SEVERE'}">
+		<td class="log-time">{{logItem.timestamp | dateTime}}</td>
+		<td class="log-level">{{logItem.level}}</td>
+		<td class="log-message">{{logItem.message}}</td>
+		<td class="log-time-list">{{logItem.tagList | join:" "}}</td>
+	</tr>
+</table>
+</div>

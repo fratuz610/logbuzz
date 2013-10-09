@@ -8,11 +8,12 @@ import (
 )
 
 type LogItem struct {
-	InputID   string `json:"inputID"`
-	Timestamp int64  `json:"timestamp"`
-	Level     string `json:"level"`
-	Message   string `json:"message"`
-	Env       string `json:"env"`
+	InputID   string   `json:"inputID"`
+	Timestamp int64    `json:"timestamp"`
+	Level     string   `json:"level"`
+	Message   string   `json:"message"`
+	Env       string   `json:"env"`
+	TagList   []string `json:"tagList"`
 }
 
 func NewLogItem(inputID, level, message, env string) *LogItem {
@@ -22,6 +23,7 @@ func NewLogItem(inputID, level, message, env string) *LogItem {
 	ret.Message = message
 	ret.Env = env
 	ret.Timestamp = time.Now().Unix()
+	ret.TagList = []string{}
 	return &ret
 }
 
@@ -69,7 +71,7 @@ func Search(inputID, level, env string, fromTS, toTS int64, skip int) []LogItem 
 			break
 		}
 
-		// we skip
+		// we skip if needed
 		if skip > 0 {
 			skip--
 			continue
@@ -84,4 +86,48 @@ func Search(inputID, level, env string, fromTS, toTS int64, skip int) []LogItem 
 	}
 
 	return retList
+}
+
+func TrimEnd() {
+	logMutex.Lock()
+	defer logMutex.Unlock()
+
+	var removeCount int = 5 * log.Len() / 100
+
+	//golog.Printf("About to remove %d items", removeCount)
+
+	for {
+		item := log.Back()
+		if item == nil {
+			return
+		}
+
+		log.Remove(item)
+
+		removeCount--
+
+		if removeCount <= 0 {
+			return
+		}
+	}
+
+}
+
+func GetNumItems() int {
+	logMutex.Lock()
+	defer logMutex.Unlock()
+	return log.Len()
+}
+
+func GetLatestTimestamp() int64 {
+	logMutex.Lock()
+	defer logMutex.Unlock()
+
+	if log.Front() == nil {
+		return 1
+	}
+
+	logItem := log.Front().Value.(*LogItem)
+
+	return logItem.Timestamp
 }
