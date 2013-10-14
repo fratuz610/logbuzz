@@ -6,7 +6,9 @@ import (
 	hosieweb "github.com/hoisie/web"
 	"io/ioutil"
 	"log"
-	"logbuzz/logitem"
+	"logbuzz/data"
+	"logbuzz/list"
+	"logbuzz/persist"
 	"runtime"
 	"strconv"
 	"strings"
@@ -15,7 +17,7 @@ import (
 
 func PostInput(ctx *hosieweb.Context) {
 
-	data, err := ioutil.ReadAll(ctx.Request.Body)
+	rawData, err := ioutil.ReadAll(ctx.Request.Body)
 
 	if err != nil {
 		log.Println("Error reading request body: " + err.Error())
@@ -23,17 +25,22 @@ func PostInput(ctx *hosieweb.Context) {
 		return
 	}
 
-	logItem := logitem.LogItem{}
+	logItem := data.LogItem{}
 
-	err = json.Unmarshal(data, &logItem)
+	err = json.Unmarshal(rawData, &logItem)
 
 	if err != nil {
-		log.Printf("unable to parse '%v' into a logItem because %v\n", string(data), err.Error())
+		log.Printf("unable to parse '%v' into a logItem because %v\n", string(rawData), err.Error())
 		ctx.WriteHeader(400)
 		return
 	}
 
-	go logitem.AddLogItem(&logItem)
+	go func() {
+		list.AddLogItem(&logItem)
+
+		// we also persist the log item
+		persist.Persist(&logItem)
+	}()
 }
 
 func GetQuery(ctx *hosieweb.Context) {
@@ -84,7 +91,7 @@ func GetQuery(ctx *hosieweb.Context) {
 		}
 	}
 
-	logItemList := logitem.Search(level, tagList, fromTS, toTS, skip)
+	logItemList := list.Search(level, tagList, fromTS, toTS, skip)
 
 	byteArray, _ := json.Marshal(logItemList)
 
@@ -97,9 +104,13 @@ func GetStats(ctx *hosieweb.Context) {
 	runtime.ReadMemStats(&m)
 
 	ret := make(map[string]interface{})
-	ret["itemCount"] = logitem.GetNumItems()
+	ret["itemCount"] = list.GetNumItems()
 	ret["systemMemory"] = m.HeapSys - m.HeapReleased
-	ret["latestTimestamp"] = logitem.GetLatestTimestamp()
+
+	startTS, endTS := list.GetTimestampRange()
+
+	ret["firstTimestamp"] = startTS
+	ret["lastTimestamp"] = endTS
 
 	byteArray, _ := json.Marshal(ret)
 

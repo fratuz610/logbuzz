@@ -1,56 +1,50 @@
-package logitem
+package list
 
 import (
 	"container/list"
+	"logbuzz/data"
+	"runtime"
 	"strings"
 	"sync"
-	"time"
 )
 
-type LogItem struct {
-	Timestamp int64    `json:"timestamp"`
-	Level     string   `json:"level"`
-	Message   string   `json:"message"`
-	TagList   []string `json:"tagList"`
-}
-
-func NewLogItem(level, message string, tagList []string) *LogItem {
-	ret := LogItem{}
-	ret.Timestamp = time.Now().Unix()
-	ret.Level = level
-	ret.Message = message
-	ret.TagList = tagList
-
-	if ret.TagList == nil {
-		ret.TagList = make([]string, 0)
-	}
-
-	return &ret
-}
+const MAX_MEMORY uint64 = 20 * 1024 * 1024
 
 var log *list.List = list.New()
 var logMutex sync.Mutex
 
-func AddLogItem(item *LogItem) {
+func AddLogItem(item *data.LogItem) {
 	logMutex.Lock()
 	defer logMutex.Unlock()
 
+	// we save in front
 	log.PushFront(item)
+
+	// we check the memory usage
+	var m runtime.MemStats
+	runtime.ReadMemStats(&m)
+
+	// if we are over the limit, we remove an old object
+	if m.HeapAlloc > MAX_MEMORY {
+		item := log.Back()
+		log.Remove(item)
+	}
+
 }
 
-func Search(level string, tagList []string, fromTS, toTS int64, skip int) []LogItem {
+func Search(level string, tagList []string, fromTS, toTS int64, skip int) []data.LogItem {
 
 	logMutex.Lock()
 	defer logMutex.Unlock()
 
 	// 500 is the maximum number of items returned per query
-	retList := make([]LogItem, 0, 500)
+	retList := make([]data.LogItem, 0, 500)
 
 	addedSoFar := 0
 
 	for cursor := log.Front(); cursor != nil; cursor = cursor.Next() {
 
-		logItem := cursor.Value.(*LogItem)
+		logItem := cursor.Value.(*data.LogItem)
 
 		if level != "" && strings.ToLower(level) != logItem.Level {
 			continue
@@ -97,46 +91,24 @@ func Search(level string, tagList []string, fromTS, toTS int64, skip int) []LogI
 	return retList
 }
 
-func TrimEnd() {
-	logMutex.Lock()
-	defer logMutex.Unlock()
-
-	var removeCount int = 5 * log.Len() / 100
-
-	//golog.Printf("About to remove %d items", removeCount)
-
-	for {
-		item := log.Back()
-		if item == nil {
-			return
-		}
-
-		log.Remove(item)
-
-		removeCount--
-
-		if removeCount <= 0 {
-			return
-		}
-	}
-
-}
-
 func GetNumItems() int {
 	logMutex.Lock()
 	defer logMutex.Unlock()
 	return log.Len()
 }
 
-func GetLatestTimestamp() int64 {
+func GetTimestampRange() (int64, int64) {
 	logMutex.Lock()
 	defer logMutex.Unlock()
 
-	if log.Front() == nil {
-		return 1
+	var startTS int64 = 1
+	var endTS int64 = 1
+	if log.Front() != nil {
+		endTS = log.Front().Value.(*data.LogItem).Timestamp
+	}
+	if log.Back() != nil {
+		startTS = log.Back().Value.(*data.LogItem).Timestamp
 	}
 
-	logItem := log.Front().Value.(*LogItem)
-
-	return logItem.Timestamp
+	return startTS, endTS
 }
