@@ -3,20 +3,24 @@ package main
 
 import (
 	hosieweb "github.com/hoisie/web"
-	"logbuzz/persist"
+	"log"
+	"logbuzz/intlog"
 	myweb "logbuzz/web"
 )
 
 func main() {
 
 	// first we rename the persistance file
-	persist.RenamePersistanceLog()
+	//persist.RenamePersistanceLog()
 
 	// then we start the load routine
-	go persist.LoadSavedLogs()
+	//go persist.LoadSavedLogs()
 
 	// then we start the persistance loop (shared among web and internal calls)
-	go persist.PersistanceLoop()
+	//go persist.PersistanceLoop()
+
+	log.SetOutput(&intlog.InternalLogWriter{[]string{"internal-log", "persistance"}})
+	hosieweb.SetLogger(log.New(&intlog.InternalLogWriter{[]string{"internal-log", "web"}}, "", 0))
 
 	// we setup the web interface
 	hosieweb.Post("/api/input", myweb.PostInput)

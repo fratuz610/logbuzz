@@ -6,6 +6,7 @@ import (
 	"runtime"
 	"strings"
 	"sync"
+	"time"
 )
 
 const MAX_MEMORY uint64 = 20 * 1024 * 1024
@@ -16,6 +17,9 @@ var logMutex sync.Mutex
 func AddLogItem(item *data.LogItem) {
 	logMutex.Lock()
 	defer logMutex.Unlock()
+
+	// we update the TS (internally generated)
+	item.Timestamp = time.Now().Unix()
 
 	// we save in front
 	log.PushFront(item)
@@ -32,19 +36,25 @@ func AddLogItem(item *data.LogItem) {
 
 }
 
-func Search(level string, tagList []string, fromTS, toTS int64, skip int) []data.LogItem {
+func Search(level string, tagList []string, fromTS, toTS int64, skip int) []*data.LogItem {
 
 	logMutex.Lock()
 	defer logMutex.Unlock()
 
 	// 500 is the maximum number of items returned per query
-	retList := make([]data.LogItem, 0, 500)
+	retList := make([]*data.LogItem, 0, 500)
 
 	addedSoFar := 0
 
 	for cursor := log.Front(); cursor != nil; cursor = cursor.Next() {
 
 		logItem := cursor.Value.(*data.LogItem)
+
+		// we skip if needed
+		if skip > 0 {
+			skip--
+			continue
+		}
 
 		if level != "" && strings.ToLower(level) != logItem.Level {
 			continue
@@ -71,16 +81,10 @@ func Search(level string, tagList []string, fromTS, toTS int64, skip int) []data
 		}
 
 		if fromTS != 0 && logItem.Timestamp < fromTS {
-			break
-		}
-
-		// we skip if needed
-		if skip > 0 {
-			skip--
 			continue
 		}
 
-		retList = append(retList, *logItem)
+		retList = append(retList, logItem)
 		addedSoFar++
 
 		if addedSoFar >= 500 {
