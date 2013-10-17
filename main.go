@@ -5,19 +5,17 @@ import (
 	hosieweb "github.com/hoisie/web"
 	"log"
 	"logbuzz/intlog"
+	"logbuzz/persist"
 	myweb "logbuzz/web"
 )
 
 func main() {
 
-	// first we rename the persistance file
-	//persist.RenamePersistanceLog()
+	// we load the redo log (synchronous)
+	persist.LoadSavedLogs()
 
-	// then we start the load routine
-	//go persist.LoadSavedLogs()
-
-	// then we start the persistance loop (shared among web and internal calls)
-	//go persist.PersistanceLoop()
+	// then we start the persistance loop
+	go persist.PersistanceLoop()
 
 	log.SetOutput(&intlog.InternalLogWriter{[]string{"internal-log", "persistance"}})
 	hosieweb.SetLogger(log.New(&intlog.InternalLogWriter{[]string{"internal-log", "web"}}, "", 0))

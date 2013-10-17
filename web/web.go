@@ -39,7 +39,7 @@ func PostInput(ctx *hosieweb.Context) {
 		list.AddLogItem(&logItem)
 
 		// we also persist the log item
-		persist.Persist(&logItem)
+		persist.PersistLogItem(&logItem)
 	}()
 }
 
