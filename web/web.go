@@ -6,6 +6,7 @@ import (
 	hosieweb "github.com/hoisie/web"
 	"io/ioutil"
 	"log"
+	"logbuzz/config"
 	"logbuzz/data"
 	"logbuzz/list"
 	"logbuzz/persist"
@@ -113,6 +114,69 @@ func GetStats(ctx *hosieweb.Context) {
 	ret["lastTimestamp"] = endTS
 
 	byteArray, _ := json.Marshal(ret)
+
+	ctx.WriteHeader(200)
+	ctx.ResponseWriter.Write(byteArray)
+}
+
+func PostConfigHttpPort(ctx *hosieweb.Context) {
+	rawData, err := ioutil.ReadAll(ctx.Request.Body)
+
+	if err != nil {
+		log.Println("Error reading request body: " + err.Error())
+		ctx.WriteHeader(400)
+		return
+	}
+
+	var httpPort int = 0
+
+	err = json.Unmarshal(rawData, &httpPort)
+
+	if err != nil {
+		log.Println("unable to parse '", string(rawData), "' into a valid httpPort value because:", err.Error())
+		ctx.WriteHeader(400)
+		return
+	}
+
+	if httpPort < 1023 || httpPort > 65534 {
+		log.Println("Invalid port number:", httpPort)
+		ctx.WriteHeader(400)
+		return
+	}
+
+	config.UpdateHttpPort(httpPort)
+}
+
+func PostConfigMemoryLimit(ctx *hosieweb.Context) {
+	rawData, err := ioutil.ReadAll(ctx.Request.Body)
+
+	if err != nil {
+		log.Println("Error reading request body: " + err.Error())
+		ctx.WriteHeader(400)
+		return
+	}
+
+	var memoryLimit uint64 = 0
+
+	err = json.Unmarshal(rawData, &memoryLimit)
+
+	if err != nil {
+		log.Println("unable to parse '", string(rawData), "' into a valid memoryLimit value because:", err.Error())
+		ctx.WriteHeader(400)
+		return
+	}
+
+	if memoryLimit < 5*1024*1024 {
+		log.Println("Invalid memory limit:", memoryLimit)
+		ctx.WriteHeader(400)
+		return
+	}
+
+	config.UpdateMemoryLimit(memoryLimit)
+}
+
+func GetConfig(ctx *hosieweb.Context) {
+	byteArray, _ := json.Marshal(config.GetConfig())
 
 	ctx.WriteHeader(200)
 	ctx.ResponseWriter.Write(byteArray)

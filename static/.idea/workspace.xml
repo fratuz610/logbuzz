@@ -2,15 +2,29 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="094010a8-f4a4-4aaf-98ed-c85121da5013" name="Default" comment="">
+      <change type="DELETED" beforePath="E:\Dropbox\go-repo\src\logbuzz\data\logitem.go" afterPath="" />
+      <change type="DELETED" beforePath="E:\Dropbox\go-repo\src\logbuzz\logbuzz" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/controllers.js" afterPath="$PROJECT_DIR$/js/controllers.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/filters.js" afterPath="$PROJECT_DIR$/js/filters.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/index.html" afterPath="$PROJECT_DIR$/index.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../list/list.go" afterPath="$PROJECT_DIR$/../list/list.go" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/partials/log.html" afterPath="$PROJECT_DIR$/partials/log.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../main.go" afterPath="$PROJECT_DIR$/../main.go" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../persist/persist.go" afterPath="$PROJECT_DIR$/../persist/persist.go" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/js/services.js" afterPath="$PROJECT_DIR$/js/services.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../web/web.go" afterPath="$PROJECT_DIR$/../web/web.go" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MOVED" beforePath="E:\Dropbox\go-repo\src\logbuzz\static\css\frontier.css" afterPath="$PROJECT_DIR$/css/logbuzz.css" />
     </list>
     <ignored path="static.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="094010a8-f4a4-4aaf-98ed-c85121da5013" time="1381383592972" ignored="false" />
-    <file path="/index.html" changelist="094010a8-f4a4-4aaf-98ed-c85121da5013" time="1381299711930" ignored="false" />
-    <file path="/controllers.js" changelist="094010a8-f4a4-4aaf-98ed-c85121da5013" time="1381306187519" ignored="false" />
-    <file path="/services.js" changelist="094010a8-f4a4-4aaf-98ed-c85121da5013" time="1381299085167" ignored="false" />
-    <file path="/log.html" changelist="094010a8-f4a4-4aaf-98ed-c85121da5013" time="1381306463968" ignored="false" />
+    <file path="/Dummy.txt" changelist="094010a8-f4a4-4aaf-98ed-c85121da5013" time="1382153009518" ignored="false" />
+    <file path="/index.html" changelist="094010a8-f4a4-4aaf-98ed-c85121da5013" time="1382172058369" ignored="false" />
+    <file path="/controllers.js" changelist="094010a8-f4a4-4aaf-98ed-c85121da5013" time="1382176233551" ignored="false" />
+    <file path="/services.js" changelist="094010a8-f4a4-4aaf-98ed-c85121da5013" time="1382175702251" ignored="false" />
+    <file path="/log.html" changelist="094010a8-f4a4-4aaf-98ed-c85121da5013" time="1382176860477" ignored="false" />
+    <file path="/filters.js" changelist="094010a8-f4a4-4aaf-98ed-c85121da5013" time="1382153450662" ignored="false" />
+    <file path="/logbuzz.css" changelist="094010a8-f4a4-4aaf-98ed-c85121da5013" time="1382153275795" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,7 +47,7 @@
       <file leaf-file-name="index.html" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="20" selection-start="582" selection-end="582" vertical-scroll-proportion="0.0">
+            <state line="26" column="27" selection-start="804" selection-end="804" vertical-scroll-proportion="-17.931034">
               <folding />
             </state>
           </provider>
@@ -42,7 +56,7 @@
       <file leaf-file-name="controllers.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/controllers.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="11" column="21" selection-start="457" selection-end="463" vertical-scroll-proportion="0.0">
+            <state line="49" column="26" selection-start="1394" selection-end="1405" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -51,7 +65,19 @@
       <file leaf-file-name="log.html" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/partials/log.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="22" column="6" selection-start="969" selection-end="969" vertical-scroll-proportion="0.5301205">
+            <state line="26" column="112" selection-start="1472" selection-end="1472" vertical-scroll-proportion="0.40963855">
+              <folding>
+                <element signature="n#style#0;n#input#0;n#div#0;n#form#0;n#div#1;n#nav#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#table#0;n#div#1;n#!!top" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="logbuzz.css" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/css/logbuzz.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="12" column="31" selection-start="115" selection-end="115" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -60,7 +86,7 @@
       <file leaf-file-name="filters.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/filters.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="2" column="37" selection-start="52" selection-end="52" vertical-scroll-proportion="0.0">
+            <state line="7" column="67" selection-start="236" selection-end="236" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -69,7 +95,7 @@
       <file leaf-file-name="services.js" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/js/services.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="32" column="81" selection-start="1210" selection-end="1233" vertical-scroll-proportion="0.0">
+            <state line="16" column="75" selection-start="578" selection-end="578" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -104,9 +130,10 @@
       <list>
         <option value="$PROJECT_DIR$/js/directives.js" />
         <option value="$PROJECT_DIR$/js/filters.js" />
-        <option value="$PROJECT_DIR$/index.html" />
+        <option value="$PROJECT_DIR$/css/logbuzz.css" />
         <option value="$PROJECT_DIR$/js/services.js" />
         <option value="$PROJECT_DIR$/js/controllers.js" />
+        <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/partials/log.html" />
       </list>
     </option>
@@ -141,6 +168,7 @@
       <sortByType />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -187,9 +215,22 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="static" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="static" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="css" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -265,7 +306,7 @@
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25199363" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.148857" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
@@ -341,6 +382,27 @@
     <breakpoint-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/js/filters.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="2" column="37" selection-start="52" selection-end="52" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/services.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="32" column="81" selection-start="1210" selection-end="1233" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/directives.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="24" column="0" selection-start="576" selection-end="576" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="0" column="0" selection-start="0" selection-end="0" vertical-scroll-proportion="0.0">
@@ -358,7 +420,10 @@
     <entry file="file://$PROJECT_DIR$/partials/log.html">
       <provider selected="true" editor-type-id="text-editor">
         <state line="21" column="86" selection-start="958" selection-end="958" vertical-scroll-proportion="0.0">
-          <folding />
+          <folding>
+            <element signature="n#style#0;n#input#0;n#div#0;n#form#0;n#div#1;n#nav#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#table#0;n#div#1;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -383,20 +448,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/js/filters.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="2" column="37" selection-start="52" selection-end="52" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="17" column="20" selection-start="582" selection-end="582" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/js/directives.js">
       <provider selected="true" editor-type-id="text-editor">
         <state line="24" column="0" selection-start="576" selection-end="576" vertical-scroll-proportion="0.0">
@@ -406,22 +457,46 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/js/services.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="32" column="81" selection-start="1210" selection-end="1233" vertical-scroll-proportion="0.0">
+        <state line="16" column="75" selection-start="578" selection-end="578" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/js/filters.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="67" selection-start="236" selection-end="236" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/css/logbuzz.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="12" column="31" selection-start="115" selection-end="115" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/controllers.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="11" column="21" selection-start="457" selection-end="463" vertical-scroll-proportion="0.0">
+        <state line="49" column="26" selection-start="1394" selection-end="1405" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="27" selection-start="804" selection-end="804" vertical-scroll-proportion="-17.931034">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/partials/log.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="22" column="6" selection-start="969" selection-end="969" vertical-scroll-proportion="0.5301205">
-          <folding />
+        <state line="26" column="112" selection-start="1472" selection-end="1472" vertical-scroll-proportion="0.40963855">
+          <folding>
+            <element signature="n#style#0;n#input#0;n#div#0;n#form#0;n#div#1;n#nav#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#table#0;n#div#1;n#!!top" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -2,14 +2,13 @@ package list
 
 import (
 	"container/list"
+	"logbuzz/config"
 	"logbuzz/data"
 	"runtime"
 	"strings"
 	"sync"
 	"time"
 )
-
-const MAX_MEMORY uint64 = 20 * 1024 * 1024
 
 var log *list.List = list.New()
 var logMutex sync.Mutex
@@ -19,7 +18,7 @@ func AddLogItem(item *data.LogItem) {
 	defer logMutex.Unlock()
 
 	// we update the TS (internally generated)
-	item.Timestamp = time.Now().Unix()
+	item.Timestamp = time.Now().UnixNano() / (1000 * 1000)
 
 	// we save in front
 	log.PushFront(item)
@@ -29,7 +28,7 @@ func AddLogItem(item *data.LogItem) {
 	runtime.ReadMemStats(&m)
 
 	// if we are over the limit, we remove an old object
-	if m.HeapAlloc > MAX_MEMORY {
+	if m.HeapAlloc > config.GetConfig().MemoryLimit {
 		item := log.Back()
 		log.Remove(item)
 	}

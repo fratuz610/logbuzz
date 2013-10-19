@@ -22,7 +22,7 @@ func PersistanceLoop() {
 	golog.Println("Starting persistance cycle")
 
 	// we open the target file for writing and keep it open
-	file, err := os.OpenFile(vars.GetPersistFile(), os.O_APPEND, 0644)
+	file, err := os.OpenFile(vars.GetPersistFile(), os.O_WRONLY|os.O_APPEND|os.O_CREATE, 0644)
 	if err != nil {
 		if os.IsNotExist(err) {
 			file, err = os.Create(vars.GetPersistFile())

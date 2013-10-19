@@ -4,7 +4,6 @@ var filters = angular.module('logbuzz.filters', []);
 
 filters.filter('dateTime', function() {
 	return function(dateTime, param) {
-		
 		if(param == "includeTimezone")
 			return moment(dateTime).format("YYYY-MM-DD HH:mm:ss Z")
 		else
@@ -34,6 +33,12 @@ filters.filter('toLowerCase', function() {
 	return function(str) {
 		return str.toLowerCase();
 	};
+});
+
+filters.filter('toUpperCase', function() {
+    return function(str) {
+        return str.toUpperCase();
+    };
 });
 
 filters.filter('join', function() {

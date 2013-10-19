@@ -7,47 +7,22 @@ services.factory('logService', ['$timeout', '$http', '$rootScope', 'logbuzzURL',
     function($timeout, $http, $rootScope, logbuzzURL) {
         var ret = {
 
-            self:this,
-
             latestTimestamp: 0,
 
-            _cancelRefresh: null,
+            updateLogList: function(skip, level, tagList) {
 
-            start: function() {
-                console.log("Start called: " + self._cancelRefresh);
+                var params = {};
+                if(skip != undefined) params.skip = 500*skip;
+                if(tagList != undefined && tagList != "") params.tagList = tagList;
+                if(level != undefined && level != "") params.level = level;
 
-                self.latestTimestamp = 0;
-
-                self._cancelRefresh = $timeout(function myFunction() {
-                    $http.get(logbuzzURL+"/api/stats")
-                        .success(function(data, status, headers, config) {
-
-                            if(data.latestTimestamp > self.latestTimestamp) {
-
-                                console.log("Updating timestamp " + data.latestTimestamp);
-                                self.latestTimestamp = data.latestTimestamp;
-
-                                $http.get(logbuzzURL+"/api/query")
-                                    .success(function(data, status, headers, config) {
-                                        console.log("logItems: " + data.length);
-                                        $rootScope.$emit('newLogItemListAvailable', data);
-                                    });
-                            }
-                            self._cancelRefresh = $timeout(myFunction, 1000);
-                        });
-
-                },1000);
-
-            },
-            stop: function() {
-                console.log("Stop called: " + self._cancelRefresh);
-                $timeout.cancel(self._cancelRefresh);
-                self._cancelRefresh = null;
-            },
-
-            isRunning: function() {
-                return self._cancelRefresh != null;
+                $http.get(logbuzzURL+"/api/query", {params:params})
+                    .success(function(data, status, headers, config) {
+                        console.log("logItems: " + data.length);
+                        $rootScope.$emit('newLogItemListAvailable', data);
+                    });
             }
+
         };
 
         return ret;
