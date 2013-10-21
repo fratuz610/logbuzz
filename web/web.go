@@ -36,6 +36,11 @@ func PostInput(ctx *hosieweb.Context) {
 		return
 	}
 
+	if logItem.TagList == nil {
+		logItem.TagList = make([]string, 1)
+	}
+	logItem.TagList = append(logItem.TagList, "ip:"+strings.Split(ctx.Request.RemoteAddr, ":")[0])
+
 	go func() {
 		list.AddLogItem(&logItem)
 

@@ -1,0 +1,10 @@
+{
+  "name": "logbuzz-deploy",
+  "description": "Deploy tool for logbuzz",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "aws-sdk": "*",
+    "async": "*"
+  }
+}

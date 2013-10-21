@@ -10,4 +10,14 @@
   color:red;
 }
 
-/*body { padding-top: 70px; }*/
+.log-time {
+  width:35px;
+}
+
+.log-level {
+
+}
+
+#log-table {
+  /*font-family: monospace;*/
+}

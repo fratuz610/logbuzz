@@ -1,4 +1,5 @@
 /logbuzz.exe
 /logbuzz
-
 /logbuzz.bin
+/_deploy/node_modules/
+/_deploy/aws.json
