@@ -1,3 +1,4 @@
 {
-  "logbuzzExecutable": "../../../bin/logbuzz"
+  "logbuzzExecutable": "../../../bin/logbuzz",
+  "logbuzzStaticFilesFolder": "../static"
 }

@@ -71,24 +71,24 @@ exports.isInstanceRunning = function(instanceID, cb) {
 		var instance = data.Reservations[0].Instances[0];
 		
 		var status = {
-			running: instance.State == "running"?true:false,
+			running: instance.State.Name == "running"?true:false,
 			publicIpAddress: instance.PublicIpAddress,
 			privateIpAddress: instance.PrivateIpAddress
 		}
 		
 		if(instance.State == "running")
-			cb(null, {running:true})
+			cb(null, status)
 		else
-			cb(null, {running:false})
+			cb(null, status)
 		
 	});
 }
 
 exports.terminateInstance = function(instanceID, cb) {
 	
-	new aws.EC2().terminateInstances({InstanceIds : [instanceId]}, function(err, data) {
+	new aws.EC2().terminateInstances({InstanceIds : [instanceID]}, function(err, data) {
 		if (err != null)
-			cb("Error terminating instances:",instanceIdList, ":", err)
+			cb("Error terminating instances: " + JSON.stringify(instanceIdList) + " : " + err)
 			
 		cb();
 		
@@ -98,19 +98,19 @@ exports.terminateInstance = function(instanceID, cb) {
 
 exports.runInstances = function(count, userDataList, cb) {
 
-	var config = {
+	var launchConfig = {
 		ImageId : awsConfig.ec2ImageID,
 		MinCount : count,
 		MaxCount: count,
 		KeyName : awsConfig.ec2KeyName,
 		SecurityGroups  : [awsConfig.ec2GroupName],
 		InstanceType : awsConfig.ec2InstanceType,
-		UserData : new Buffer(userDataList.join("\n").toString('base64'))
+		UserData : new Buffer(userDataList.join("\n")).toString('base64')
 	}
 	
-	new aws.EC2().runInstances({InstanceIds : [instanceId]}, function(err, data) {
+	new aws.EC2().runInstances(launchConfig, function(err, data) {
 		if (err != null)
-			cb("Error launching instances:",instanceIdList, ":", err)
+			cb("Error launching instances:" + JSON.stringify(launchConfig) + " : " +  err)
 		
 		var instanceIDList = [];
 		for(i = 0; i < data.Instances.length; i++) {
